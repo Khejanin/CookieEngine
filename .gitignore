@@ -1,0 +1,6 @@
+#Ignore generated stuff
+cmake-build-debug
+output
+
+#Ignore Jetbrains stuff
+.idea
