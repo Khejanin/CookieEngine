@@ -29,14 +29,9 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory("${DEPENDENCIES_DIR}/glfw-3.3.7")
 include_directories("${DEPENDENCIES_DIR}/glfw-3.3.7/include")
 
-#GLEW
-include_directories(${DEPENDENCIES_DIR}/glew-2.2.0/build/cmake)
-set(GLEW_INCLUDE_DIR "${DEPENDENCIES_DIR}/glew-2.2.0/include/GL")
-set(GLEW_LIBRARIES "${DEPENDENCIES_DIR}/glew-2.2.0/lib/Release/Win32")
-set(GLEW_VERBOSE true)
-find_package(GLEW REQUIRED)
-include_directories(${GLEW_INCLUDE_DIRS})
-link_libraries(${GLEW_LIBRARIES})
+#GLAD
+set(GLAD_SRC "${DEPENDENCIES_DIR}/glad/src/glad.c")
+include_directories(${DEPENDENCIES_DIR}/glad/include)
 
 # Project
 # Core
@@ -44,9 +39,9 @@ file(GLOB_RECURSE CORE_SRC "src/core/*")
 file(GLOB_RECURSE GRAPHICS_SRC "src/graphics/*")
 
 add_library(${CORE} ${CORE_SRC})
-add_library(${GRAPHICS} ${GRAPHICS_SRC})
+add_library(${GRAPHICS} ${GRAPHICS_SRC} src/graphics/Window.cpp src/graphics/Window.hpp)
 
-add_executable(${COOKIE} main.cpp)
+add_executable(${COOKIE} main.cpp ${GLAD_SRC})
 
 include_directories("${SOURCE}")
 
@@ -59,5 +54,4 @@ target_link_libraries(${COOKIE} ${GRAPHICS})
 # Third Party
 target_link_libraries(${COOKIE} ${OPENGL_gl_LIBRARY})
 target_link_libraries(${COOKIE} ${OPENGL_glu_LIBRARY})
-target_link_libraries(${COOKIE} GLEW::GLEW)
 target_link_libraries(${COOKIE} glfw)

@@ -1,3 +1,4 @@
+#pragma once
 #include <memory>
 
 template<class T>
@@ -15,9 +16,12 @@ public:
 
     static void DeleteInstance()
     {
-        delete instance.release();
+        instance.release();
     }
 
-private:
+protected:
     static std::unique_ptr<T> instance;
 };
+
+template <class T>
+std::unique_ptr<T> Singleton<T>::instance;
