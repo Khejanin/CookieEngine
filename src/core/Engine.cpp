@@ -1,8 +1,19 @@
-#include <iostream>
 #include "Engine.hpp"
+#include <iostream>
 
-namespace Core {
-    void Engine::test() {
-        std::cout << "Test!";
+namespace Core
+{
+    Engine::Engine():
+            is_running(true)
+    {
     }
-} // core
+
+    void Engine::Run()
+    {
+        while(is_running)
+        {
+            std::cout << "Engine is running";
+            return;
+        }
+    }
+}

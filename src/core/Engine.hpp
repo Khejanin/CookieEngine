@@ -1,8 +1,14 @@
+#include "Singleton.hpp"
+
 namespace Core {
 
-    class Engine {
+    class Engine : public Singleton<Engine>{
     public:
-        void test();
+        Engine();
+        void Run();
+
+    private:
+        bool is_running;
     };
 
 }
